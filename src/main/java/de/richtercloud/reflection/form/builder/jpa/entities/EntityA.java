@@ -3,16 +3,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -29,18 +29,18 @@ import javax.persistence.ManyToMany;
  * @author richter
  */
 @Entity
-public class EntityAMappedBy implements Serializable {
+public class EntityA implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "as")
-    private List<EntityBMappedBy> bs = new LinkedList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<EntityB> bs = new LinkedList<>();
 
-    protected EntityAMappedBy() {
+    protected EntityA() {
     }
 
-    public EntityAMappedBy(Long id) {
+    public EntityA(Long id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class EntityAMappedBy implements Serializable {
         this.id = id;
     }
 
-    public List<EntityBMappedBy> getBs() {
+    public List<EntityB> getBs() {
         return bs;
     }
 
-    public void setBs(List<EntityBMappedBy> bs) {
+    public void setBs(List<EntityB> bs) {
         this.bs = bs;
     }
 
@@ -78,10 +78,7 @@ public class EntityAMappedBy implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityAMappedBy other = (EntityAMappedBy) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityA other = (EntityA) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

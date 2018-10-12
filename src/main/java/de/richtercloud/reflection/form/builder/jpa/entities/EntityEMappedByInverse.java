@@ -3,44 +3,42 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author richter
  */
 @Entity
-public class EntityC implements Serializable {
+public class EntityEMappedByInverse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<EntityD> ds = new LinkedList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    private EntityFMappedByInverse f;
 
-    protected EntityC() {
+    protected EntityEMappedByInverse() {
     }
 
-    public EntityC(Long id) {
+    public EntityEMappedByInverse(Long id) {
         this.id = id;
     }
 
@@ -52,18 +50,18 @@ public class EntityC implements Serializable {
         this.id = id;
     }
 
-    public List<EntityD> getDs() {
-        return ds;
+    public EntityFMappedByInverse getF() {
+        return f;
     }
 
-    public void setDs(List<EntityD> ds) {
-        this.ds = ds;
+    public void setF(EntityFMappedByInverse f) {
+        this.f = f;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -78,10 +76,7 @@ public class EntityC implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityC other = (EntityC) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityEMappedByInverse other = (EntityEMappedByInverse) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

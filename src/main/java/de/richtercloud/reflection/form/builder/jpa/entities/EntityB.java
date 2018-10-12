@@ -3,42 +3,44 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author richter
  */
 @Entity
-public class EntityDMappedBy implements Serializable {
+public class EntityB implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private EntityCMappedBy c = null;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<EntityA> as = new LinkedList<>();
 
-    protected EntityDMappedBy() {
+    protected EntityB() {
     }
 
-    public EntityDMappedBy(Long id) {
+    public EntityB(Long id) {
         this.id = id;
     }
 
@@ -50,18 +52,18 @@ public class EntityDMappedBy implements Serializable {
         this.id = id;
     }
 
-    public EntityCMappedBy getC() {
-        return c;
+    public List<EntityA> getAs() {
+        return as;
     }
 
-    public void setC(EntityCMappedBy c) {
-        this.c = c;
+    public void setAs(List<EntityA> as) {
+        this.as = as;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -76,10 +78,7 @@ public class EntityDMappedBy implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityDMappedBy other = (EntityDMappedBy) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityB other = (EntityB) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

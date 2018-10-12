@@ -3,16 +3,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,18 +27,18 @@ import javax.persistence.OneToOne;
  * @author richter
  */
 @Entity
-public class EntityF implements Serializable {
+public class EntityEMappedBy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
-    private EntityE e = null;
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "e")
+    private EntityFMappedBy f;
 
-    protected EntityF() {
+    protected EntityEMappedBy() {
     }
 
-    public EntityF(Long id) {
+    public EntityEMappedBy(Long id) {
         this.id = id;
     }
 
@@ -50,18 +50,18 @@ public class EntityF implements Serializable {
         this.id = id;
     }
 
-    public EntityE getE() {
-        return e;
+    public EntityFMappedBy getF() {
+        return f;
     }
 
-    public void setE(EntityE e) {
-        this.e = e;
+    public void setF(EntityFMappedBy f) {
+        this.f = f;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -76,10 +76,7 @@ public class EntityF implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityF other = (EntityF) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityEMappedBy other = (EntityEMappedBy) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

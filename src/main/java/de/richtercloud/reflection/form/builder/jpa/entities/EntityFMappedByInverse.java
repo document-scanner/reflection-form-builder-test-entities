@@ -3,44 +3,42 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author richter
  */
 @Entity
-public class EntityBMappedBy implements Serializable {
+public class EntityFMappedByInverse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<EntityAMappedBy> as = new LinkedList<>();
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "f")
+    private EntityEMappedByInverse e;
 
-    protected EntityBMappedBy() {
+    protected EntityFMappedByInverse() {
     }
 
-    public EntityBMappedBy(Long id) {
+    public EntityFMappedByInverse(Long id) {
         this.id = id;
     }
 
@@ -52,18 +50,18 @@ public class EntityBMappedBy implements Serializable {
         this.id = id;
     }
 
-    public List<EntityAMappedBy> getAs() {
-        return as;
+    public EntityEMappedByInverse getE() {
+        return e;
     }
 
-    public void setAs(List<EntityAMappedBy> as) {
-        this.as = as;
+    public void setE(EntityEMappedByInverse e) {
+        this.e = e;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -78,10 +76,7 @@ public class EntityBMappedBy implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityBMappedBy other = (EntityBMappedBy) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityFMappedByInverse other = (EntityFMappedByInverse) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

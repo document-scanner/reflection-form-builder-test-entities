@@ -3,42 +3,44 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author richter
  */
 @Entity
-public class EntityEMappedBy implements Serializable {
+public class EntityBMappedBy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "e")
-    private EntityFMappedBy f = null;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<EntityAMappedBy> as = new LinkedList<>();
 
-    protected EntityEMappedBy() {
+    protected EntityBMappedBy() {
     }
 
-    public EntityEMappedBy(Long id) {
+    public EntityBMappedBy(Long id) {
         this.id = id;
     }
 
@@ -50,17 +52,17 @@ public class EntityEMappedBy implements Serializable {
         this.id = id;
     }
 
-    public EntityFMappedBy getF() {
-        return f;
+    public List<EntityAMappedBy> getAs() {
+        return as;
     }
 
-    public void setF(EntityFMappedBy f) {
-        this.f = f;
+    public void setAs(List<EntityAMappedBy> as) {
+        this.as = as;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -76,10 +78,7 @@ public class EntityEMappedBy implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityEMappedBy other = (EntityEMappedBy) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityBMappedBy other = (EntityBMappedBy) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

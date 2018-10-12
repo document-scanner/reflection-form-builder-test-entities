@@ -3,16 +3,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -29,18 +29,18 @@ import javax.persistence.ManyToMany;
  * @author richter
  */
 @Entity
-public class EntityA implements Serializable {
+public class EntityAMappedBy implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<EntityB> bs = new LinkedList<>();
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "as")
+    private List<EntityBMappedBy> bs = new LinkedList<>();
 
-    protected EntityA() {
+    protected EntityAMappedBy() {
     }
 
-    public EntityA(Long id) {
+    public EntityAMappedBy(Long id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class EntityA implements Serializable {
         this.id = id;
     }
 
-    public List<EntityB> getBs() {
+    public List<EntityBMappedBy> getBs() {
         return bs;
     }
 
-    public void setBs(List<EntityB> bs) {
+    public void setBs(List<EntityBMappedBy> bs) {
         this.bs = bs;
     }
 
@@ -78,10 +78,7 @@ public class EntityA implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityA other = (EntityA) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityAMappedBy other = (EntityAMappedBy) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

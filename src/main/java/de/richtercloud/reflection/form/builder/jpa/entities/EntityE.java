@@ -3,44 +3,42 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package richtercloud.reflection.form.builder.jpa.entities;
+package de.richtercloud.reflection.form.builder.jpa.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author richter
  */
 @Entity
-public class EntityB implements Serializable {
+public class EntityE implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<EntityA> as = new LinkedList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    private EntityF f;
 
-    protected EntityB() {
+    protected EntityE() {
     }
 
-    public EntityB(Long id) {
+    public EntityE(Long id) {
         this.id = id;
     }
 
@@ -52,17 +50,17 @@ public class EntityB implements Serializable {
         this.id = id;
     }
 
-    public List<EntityA> getAs() {
-        return as;
+    public EntityF getF() {
+        return f;
     }
 
-    public void setAs(List<EntityA> as) {
-        this.as = as;
+    public void setF(EntityF f) {
+        this.f = f;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -78,10 +76,7 @@ public class EntityB implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EntityB other = (EntityB) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final EntityE other = (EntityE) obj;
+        return Objects.equals(this.id, other.id);
     }
 }
